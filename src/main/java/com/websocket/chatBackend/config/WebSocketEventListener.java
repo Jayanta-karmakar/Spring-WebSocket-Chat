@@ -1,9 +1,8 @@
 package com.websocket.chatBackend.config;
 
-import com.websocket.chatBackend.model.ChatMassage;
+import com.websocket.chatBackend.model.ChatMessage;
 import com.websocket.chatBackend.model.MassageType;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class WebSocketEventListener {
         String userName = headerAccessor.getSessionAttributes().get("username").toString();
         if (userName != null) {
             log.info("User Disconnected : {}", userName);
-            var chatMassage = ChatMassage.builder()
+            var chatMassage = ChatMessage.builder()
                     .sender(userName)
                     .massageType(MassageType.LEAVE)
                     .build();

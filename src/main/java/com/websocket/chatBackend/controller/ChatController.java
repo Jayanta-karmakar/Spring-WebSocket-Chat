@@ -1,12 +1,11 @@
 package com.websocket.chatBackend.controller;
 
-import com.websocket.chatBackend.model.ChatMassage;
+import com.websocket.chatBackend.model.ChatMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author : jayantakarmakar
@@ -17,18 +16,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class ChatController {
 
-    @SendTo(value = "/topic/public")
-    @MessageMapping(value = "/chat.sendMassage")
-    private ChatMassage sendMassage(@Payload ChatMassage chatMassage) {
-        return chatMassage;
+    @SendTo("/topic/public")
+    @MessageMapping("/chat.sendMessage")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        return chatMessage;
     }
 
-    @SendTo(value = "/topic/public")
-    @MessageMapping(value = "/chat.addUser") 
-    public ChatMassage ddUser(@Payload ChatMassage chatMassage,
-                              SimpMessageHeaderAccessor headerAccessor) {
-        // add userName in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMassage.getSender());
-        return chatMassage;
+    @SendTo("/topic/public")
+    @MessageMapping("/chat.addUser")
+    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        // Add username in web socket session
+        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        return chatMessage;
     }
 }

@@ -13,7 +13,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChatMassage {
+public class ChatMessage {
     private String content;
     private String sender; 
     private MassageType massageType;
