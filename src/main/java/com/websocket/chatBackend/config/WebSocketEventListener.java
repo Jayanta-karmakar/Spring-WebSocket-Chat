@@ -3,9 +3,7 @@ package com.websocket.chatBackend.config;
 import com.websocket.chatBackend.model.ChatMessage;
 import com.websocket.chatBackend.model.MessageType;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
@@ -18,26 +16,23 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
  * @created : 21/01/24, Sunday
  **/
 
-//@Slf4j
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class WebSocketEventListener {
-    @Autowired
-    private final SimpMessageSendingOperations messageTemplate;
-    public final Logger log = LoggerFactory.getLogger(WebSocketEventListener.class);
+    private final SimpMessageSendingOperations messagingTemplate;
 
     @EventListener
-    public void handleWebSocketDisconnectListener(
-            SessionDisconnectEvent event) {
+    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        String userName = headerAccessor.getSessionAttributes().get("username").toString();
-        if (userName != null) {
-            log.info("User Disconnected : {}", userName);
-            var chatMassage = ChatMessage.builder()
-                    .sender(userName)
+        String username = (String) headerAccessor.getSessionAttributes().get("username");
+        if (username != null) {
+            log.info("user disconnected: {}", username);
+            var chatMessage = ChatMessage.builder()
                     .type(MessageType.LEAVE)
+                    .sender(username)
                     .build();
-            messageTemplate.convertAndSend("/topic/public", chatMassage);
+            messagingTemplate.convertAndSend("/topic/public", chatMessage);
         }
     }
 }
