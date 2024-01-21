@@ -27,7 +27,7 @@ public class WebSocketEventListener {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
         String username = headerAccessor.getSessionAttributes().get("username").toString();
         if (username != null) {
-            log.info("user disconnected: {}", username);
+            log.info("User Disconnected: {}", username);
             var chatMessage = ChatMessage.builder()
                     .type(MessageType.LEAVE)
                     .sender(username)
