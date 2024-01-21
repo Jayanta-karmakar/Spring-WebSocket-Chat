@@ -1,7 +1,7 @@
 package com.websocket.chatBackend.config;
 
 import com.websocket.chatBackend.model.ChatMessage;
-import com.websocket.chatBackend.model.MassageType;
+import com.websocket.chatBackend.model.MessageType;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class WebSocketEventListener {
             log.info("User Disconnected : {}", userName);
             var chatMassage = ChatMessage.builder()
                     .sender(userName)
-                    .massageType(MassageType.LEAVE)
+                    .type(MessageType.LEAVE)
                     .build();
             messageTemplate.convertAndSend("/topic/public", chatMassage);
         }

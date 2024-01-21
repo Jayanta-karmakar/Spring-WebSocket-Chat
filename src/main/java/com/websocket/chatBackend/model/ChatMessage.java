@@ -7,7 +7,7 @@ import lombok.*;
  * @mailto : jayantakarmakar998@mail.com
  * @created : 21/01/24, Sunday
  **/
-@Data
+
 @Getter
 @Setter
 @Builder
@@ -15,6 +15,6 @@ import lombok.*;
 @NoArgsConstructor
 public class ChatMessage {
     private String content;
-    private String sender; 
-    private MassageType massageType;
+    private String sender;
+    private MessageType type;
 }

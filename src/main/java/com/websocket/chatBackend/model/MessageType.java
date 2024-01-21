@@ -6,7 +6,7 @@ package com.websocket.chatBackend.model;
  * @created : 21/01/24, Sunday
  **/
 
-public enum MassageType {
+public enum MessageType {
     CHAT,
     JOIN,
     LEAVE;
