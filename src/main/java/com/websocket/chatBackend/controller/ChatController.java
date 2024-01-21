@@ -19,16 +19,16 @@ public class ChatController {
 
     @SendTo(value = "/topic/public")
     @MessageMapping(value = "/chat.sendMassage")
-    private ChatMassage sendMassage(@Payload @RequestBody ChatMassage chatMassage) {
+    private ChatMassage sendMassage(@Payload ChatMassage chatMassage) {
         return chatMassage;
     }
 
     @SendTo(value = "/topic/public")
     @MessageMapping(value = "/chat.addUser") 
-    public ChatMassage ddUser(@Payload @RequestBody ChatMassage chatMassage,
+    public ChatMassage ddUser(@Payload ChatMassage chatMassage,
                               SimpMessageHeaderAccessor headerAccessor) {
         // add userName in web socket session
-        headerAccessor.getSessionAttributes().put("userName", chatMassage.getSender());
+        headerAccessor.getSessionAttributes().put("username", chatMassage.getSender());
         return chatMassage;
     }
 }
