@@ -4,10 +4,9 @@ package com.websocket.chatBackend.model;
  * @author : jayantakarmakar
  * @mailto : jayantakarmakar998@mail.com
  * @created : 21/01/24, Sunday
- **/
-
+ */
 public enum MessageType {
-    CHAT,
-    JOIN,
-    LEAVE;
+  CHAT,
+  JOIN,
+  LEAVE;
 }
